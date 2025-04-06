@@ -9,6 +9,9 @@ const TeachersPage = React.lazy(() =>
 const FavoritesPage = React.lazy(() =>
   import('../pages/FavoritesPage/FavoritesPage')
 );
+const NotFoundPage = React.lazy(() =>
+  import('../pages/NotFoundPage/NotFoundPage')
+);
 
 const Loader = () => <div>Loading...</div>;
 
@@ -21,6 +24,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/teachers" element={<TeachersPage />} />
             <Route path="/teachers/favorites" element={<FavoritesPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       </Layout>
