@@ -82,7 +82,8 @@ const Navigation = () => {
 
       {isLoginModalOpen && (
         <Modal onClose={closeLoginModal}>
-          <h2>Log In</h2>}
+          <h2>Log In</h2>
+
           <form>
             <input type="email" placeholder="Email" required />
             <input type="password" placeholder="Password" required />
