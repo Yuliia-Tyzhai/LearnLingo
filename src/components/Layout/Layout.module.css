@@ -1,5 +1,5 @@
 .layoutContainer {
   margin: 0 auto;
-  padding: 0 64px;
+  padding: 0 64px 32px 64px;
   width: 1440px;
 }

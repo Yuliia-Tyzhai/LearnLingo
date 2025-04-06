@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './HomePage.module.css';
 import homePageImg from '../../assets/home-page-img.png';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   return (
@@ -16,7 +17,9 @@ const HomePage = () => {
             Elevate your language proficiency to new heights by connecting with
             highly qualified and experienced tutors.
           </p>
-          <button className={styles.homePageBtn}>Get started</button>
+          <Link to="/teachers" className={styles.homePageBtn}>
+            Get started
+          </Link>
         </div>
         <div>
           <img src={homePageImg} alt="Language learning" />
