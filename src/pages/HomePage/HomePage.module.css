@@ -57,6 +57,10 @@
   color: #121417;
 }
 
+.homePageBtn:hover {
+  background-color: #cbded3;
+}
+
 .listContainer ul {
   display: flex;
   align-items: flex-start;
