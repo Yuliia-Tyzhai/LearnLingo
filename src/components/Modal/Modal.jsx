@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
+import { ReactSVG } from 'react-svg';
 import styles from './Modal.module.css';
+import closeBtn from '../../assets/close-btn.svg'; // SVG-іконка з папки assets
 
 const Modal = ({ children, onClose }) => {
   useEffect(() => {
@@ -24,9 +26,15 @@ const Modal = ({ children, onClose }) => {
   return (
     <div className={styles.modalOverlay} onClick={handleOverlayClick}>
       <div className={styles.modalContent}>
-        <button className={styles.closeButton} onClick={onClose}>
-          &times;
-        </button>
+        {/* Хрестик як ReactSVG */}
+        <div
+          className={styles.closeButton}
+          onClick={onClose}
+          role="button"
+          tabIndex={0}
+        >
+          <ReactSVG src={closeBtn} className={styles.closeIcon} />
+        </div>
         {children}
       </div>
     </div>
