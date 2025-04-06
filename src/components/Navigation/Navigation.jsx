@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import styles from './Navigation.module.css';
 import { ReactSVG } from 'react-svg';
 import learnLingoLogo from '../../../public/ukraine.svg';
+import loginIcon from '../../assets/login-icon.svg';
 
 import { isTeachersPage } from '../../utils/isTeachersPage';
 import Modal from '../Modal/Modal';
@@ -66,6 +67,7 @@ const Navigation = () => {
               </li>
               <li className={styles.navListItem}>
                 <button className={styles.loginBtn} onClick={openLoginModal}>
+                  <ReactSVG src={loginIcon} className={styles.loginIcon} />
                   Log In
                 </button>
               </li>

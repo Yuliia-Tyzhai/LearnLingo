@@ -40,16 +40,15 @@
 
 .learnLingoLogoContainer {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  white-space: nowrap;
-  width: auto;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
 }
 
 .learnLingoLogo {
   width: 28px;
   height: 28px;
-  margin-right: 8px;
 }
 
 .learnLingoText {
@@ -91,4 +90,12 @@
   font-size: 16px;
   line-height: 1.375;
   color: rgba(18, 20, 23, 0.8);
+}
+
+.loginBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
 }
