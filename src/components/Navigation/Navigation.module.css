@@ -1,0 +1,67 @@
+.header {
+  padding: 20px 128px 20px 128px;
+  z-index: 9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 390px;
+  width: 100%;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 32px;
+  width: 1200px;
+  padding-left: 0;
+}
+
+.link {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  text-align: center;
+  color: #101828;
+}
+
+.active {
+  color: #0b44cd;
+}
+
+.learnLingoLogoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+  width: auto;
+}
+
+.learnLingoLogo {
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+}
+
+.learnLingoText {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #121417;
+}
+
+.registrationBtn {
+  background-color: #121417;
+  color: #ffffff;
+}
