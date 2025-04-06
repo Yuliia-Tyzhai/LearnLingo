@@ -60,13 +60,13 @@
 }
 
 .active {
-  color: #0b44cd; /* Активне посилання */
+  color: #0b44cd;
 }
 
 .buttonsContainer {
   display: flex;
   align-items: center;
-  gap: 16px; /* Відступ між кнопками */
+  gap: 16px;
 }
 
 .loginBtn,
