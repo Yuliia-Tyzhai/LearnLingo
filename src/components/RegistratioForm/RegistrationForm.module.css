@@ -1,0 +1,49 @@
+.inputName input {
+  border: 1px solid rgba(18, 20, 23, 0.1);
+  border-radius: 12px;
+  padding: 16px 377px 16px 18px;
+  width: 438px;
+  height: 54px;
+  margin-bottom: 18px;
+}
+
+.inputEmail input {
+  border: 1px solid rgba(18, 20, 23, 0.1);
+  border-radius: 12px;
+  padding: 16px 380px 16px 18px;
+  width: 438px;
+  height: 54px;
+  margin-bottom: 18px;
+}
+
+.inputPassword input {
+  border: 1px solid rgba(18, 20, 23, 0.1);
+  border-radius: 12px;
+  padding: 16px 349px 16px 18px;
+  width: 438px;
+  height: 54px;
+  margin-bottom: 40px;
+}
+
+.registerBtn {
+  border-radius: 12px;
+  padding: 16px 187.5px;
+  width: 438px;
+  height: 60px;
+  background-color: #9fbaae;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.55556;
+  color: #121417;
+}
+
+.registerBtn:hover {
+  background-color: #cbded3;
+}
+
+input::placeholder {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.375;
+  color: #121417;
+}

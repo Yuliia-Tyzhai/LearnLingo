@@ -28,15 +28,15 @@ const RegistrationForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-      <div>
-        <input {...register('username')} placeholder="Username" />
+      <div className={styles.inputName}>
+        <input {...register('name')} placeholder="Name" />
         <p className={styles.error}>{errors.username?.message}</p>
       </div>
-      <div>
+      <div className={styles.inputEmail}>
         <input {...register('email')} placeholder="Email" />
         <p className={styles.error}>{errors.email?.message}</p>
       </div>
-      <div>
+      <div className={styles.inputPassword}>
         <input
           {...register('password')}
           type="password"
@@ -44,7 +44,9 @@ const RegistrationForm = () => {
         />
         <p className={styles.error}>{errors.password?.message}</p>
       </div>
-      <button type="submit">Register</button>
+      <button type="submit" className={styles.registerBtn}>
+        Sign up
+      </button>
     </form>
   );
 };
