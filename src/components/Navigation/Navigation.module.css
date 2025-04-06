@@ -65,3 +65,30 @@
   background-color: #121417;
   color: #ffffff;
 }
+
+.loginTitleContainer,
+.registerTitleContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.loginTitle,
+.registerTitle {
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #121417;
+}
+
+.loginText,
+.registerText {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.375;
+  color: rgba(18, 20, 23, 0.8);
+}

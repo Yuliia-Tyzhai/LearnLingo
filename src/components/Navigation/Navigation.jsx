@@ -7,6 +7,8 @@ import learnLingoLogo from '../../../public/ukraine.svg';
 
 import { isTeachersPage } from '../../utils/isTeachersPage';
 import Modal from '../Modal/Modal';
+import LoginForm from '../LoginForm/LoginForm';
+import RegistrationForm from '../RegistratioForm/RegistrationForm';
 
 const Navigation = () => {
   const location = useLocation();
@@ -82,26 +84,30 @@ const Navigation = () => {
 
       {isLoginModalOpen && (
         <Modal onClose={closeLoginModal}>
-          <h2>Log In</h2>
+          <div className={styles.loginTitleContainer}>
+            <h2 className={styles.loginTitle}>Log In</h2>
+            <p className={styles.loginText}>
+              Welcome back! Please enter your credentials to access your account
+              and continue your search for an teacher.
+            </p>
+          </div>
 
-          <form>
-            <input type="email" placeholder="Email" required />
-            <input type="password" placeholder="Password" required />
-            <button type="submit">Log In</button>
-          </form>
+          <LoginForm />
         </Modal>
       )}
 
       {isRegistrationModalOpen && (
         <Modal onClose={closeRegistrationModal}>
-          <h2>Registration</h2>
+          <div className={styles.registerTitleContainer}>
+            <h2 className={styles.registerTitle}>Registration</h2>
+            <p className={styles.registerText}>
+              Thank you for your interest in our platform! In order to register,
+              we need some information. Please provide us with the following
+              information
+            </p>
+          </div>
 
-          <form>
-            <input type="text" placeholder="Username" required />
-            <input type="email" placeholder="Email" required />
-            <input type="password" placeholder="Password" required />
-            <button type="submit">Register</button>
-          </form>
+          <RegistrationForm />
         </Modal>
       )}
     </header>
