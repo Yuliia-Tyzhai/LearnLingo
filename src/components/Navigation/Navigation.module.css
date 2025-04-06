@@ -60,6 +60,11 @@
   color: #121417;
 }
 
+.learnLingoLogoContainer span {
+  margin: 0;
+  padding: 0;
+}
+
 .registrationBtn {
   background-color: #121417;
   color: #ffffff;
