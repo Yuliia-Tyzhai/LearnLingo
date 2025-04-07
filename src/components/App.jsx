@@ -23,7 +23,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/teachers" element={<TeachersPage />} />
-            <Route path="/teachers/favorites" element={<FavoritesPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
