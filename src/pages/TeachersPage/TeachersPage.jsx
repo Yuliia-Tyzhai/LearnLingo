@@ -8,21 +8,20 @@ const TeachersPage = () => {
   const [visibleCount, setVisibleCount] = useState(4);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
         setLoading(true);
-        const teachersRef = ref(database, '/');
-        const snapshot = await get(teachersRef);
+        const rootRef = ref(database, '/');
+        const snapshot = await get(rootRef);
         if (snapshot.exists()) {
           const fetchedTeachers = Object.values(snapshot.val());
           setTeachers(fetchedTeachers);
         } else {
-          console.log('No teachers found in the database.');
+          console.log('No teacher data found.');
         }
       } catch (error) {
-        setError('Помилка при отриманні даних з бази.');
+        setError('Error loading data.');
         console.error('Error fetching teachers:', error);
       } finally {
         setLoading(false);
@@ -36,19 +35,34 @@ const TeachersPage = () => {
     setVisibleCount(prevCount => prevCount + 4);
   };
 
+  const handleFavoriteToggle = teacherId => {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    if (favorites.includes(teacherId)) {
+      favorites = favorites.filter(id => id !== teacherId);
+    } else {
+      favorites.push(teacherId);
+    }
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    console.log('Favorites updated:', favorites);
+  };
+
   return (
     <div>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}{' '}
-      {!loading && teachers.length === 0 && <p>No teachers.</p>}{' '}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {!loading && teachers.length === 0 && <p>No teachers available.</p>}
       <div className="teachers-grid">
         {teachers.slice(0, visibleCount).map((teacher, index) => (
-          <TeacherCard key={index} teacher={teacher} />
+          <TeacherCard
+            key={index}
+            teacher={teacher}
+            onFavoriteToggle={() => handleFavoriteToggle(teacher.id)}
+          />
         ))}
       </div>
       {visibleCount < teachers.length && (
         <button onClick={handleLoadMore} className="load-more">
-          Load more
+          Load More
         </button>
       )}
     </div>
