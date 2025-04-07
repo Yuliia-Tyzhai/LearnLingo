@@ -10,9 +10,9 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import teachersReducer from './features/teachers/slice';
-import filtersReducer from './features/filters/slice';
-import favoritesReducer from './features/favorites/slice';
+import teachersReducer from '../redux/teachers/slice';
+import filtersReducer from '../redux/filters/slice';
+import favoritesReducer from '../redux/favorites/slice';
 
 const persistConfig = {
   key: 'favorites',
