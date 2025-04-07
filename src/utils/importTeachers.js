@@ -1,17 +1,23 @@
 import { getDatabase, ref, set } from 'firebase/database';
 import teachersData from '../assets/teachers.json';
 
-export const importTeachers = () => {
+export const importTeachers = async () => {
   const database = getDatabase();
 
-  Object.keys(teachersData).forEach(teacherId => {
-    const teacherRef = ref(database, `teachers/${teacherId}`);
-    set(teacherRef, teachersData[teacherId])
-      .then(() => {
-        console.log(`Teacher ${teacherId} imported successfully`);
-      })
-      .catch(error => {
-        console.error(`Error importing teacher ${teacherId}:`, error);
-      });
-  });
+  try {
+    teachersData.forEach((teacher, index) => {
+      const teacherRef = ref(database, `teachers/teacher${index + 1}`);
+      set(teacherRef, teacher)
+        .then(() =>
+          console.log(`Teacher ${teacher.name} imported successfully.`)
+        )
+        .catch(error =>
+          console.error(`Error importing teacher ${teacher.name}:`, error)
+        );
+    });
+  } catch (error) {
+    console.error('Error during import:', error);
+  }
 };
+
+importTeachers();

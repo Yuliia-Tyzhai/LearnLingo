@@ -9,7 +9,7 @@ import loginIcon from '../../assets/login-icon.svg';
 import { isTeachersPage } from '../../utils/isTeachersPage';
 import Modal from '../Modal/Modal';
 import LoginForm from '../LoginForm/LoginForm';
-import RegistrationForm from '../RegistratioForm/RegistrationForm';
+import RegistrationForm from '../RegistrationForm/RegistrationForm';
 
 const Navigation = () => {
   const location = useLocation();
