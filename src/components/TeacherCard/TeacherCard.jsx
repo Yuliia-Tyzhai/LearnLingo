@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './TeacherCard.module.css';
 
 const TeacherCard = ({ teacher, onFavoriteToggle }) => {
   const [showFullInfo, setShowFullInfo] = useState(false);
@@ -9,11 +10,14 @@ const TeacherCard = ({ teacher, onFavoriteToggle }) => {
 
   return (
     <div className="teacher-card">
-      <img
-        src={teacher.avatar_url}
-        alt={`${teacher.name} ${teacher.surname}`}
-        className="teacher-photo"
-      />
+      <div className={styles.avatarContainer}>
+        <img
+          src={teacher.avatar_url}
+          alt={`${teacher.name} ${teacher.surname}`}
+          className={styles.teacherImg}
+        />
+      </div>
+
       <p className="teacher-languages">
         Speaks: {teacher.languages.join(', ')}
       </p>
