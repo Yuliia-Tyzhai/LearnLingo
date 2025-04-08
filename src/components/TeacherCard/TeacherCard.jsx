@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ReactSVG } from 'react-svg';
+import heartIcon from '../../assets/heart.svg';
 import styles from './TeacherCard.module.css';
 
 const TeacherCard = ({ teacher, onFavoriteToggle }) => {
@@ -29,24 +31,36 @@ const TeacherCard = ({ teacher, onFavoriteToggle }) => {
             </div>
 
             <div className={styles.lessonsContainer}>
-              <p>Lessons online</p>
-              <p>Lessons done: {teacher.lessons_done}</p>
-              <p>Rating: {teacher.rating}</p>
-              <p>Price / 1 hour: ${teacher.price_per_hour}</p>
-            </div>
-            <div>
-              <button onClick={onFavoriteToggle}>❤️</button>
+              <span>Lessons online</span>
+              <span>Lessons done: {teacher.lessons_done}</span>
+              <span>Rating: {teacher.rating}</span>
+              <span className={styles.priceText}>
+                Price / 1 hour:{' '}
+                <span className={styles.price}>{teacher.price_per_hour}$</span>
+              </span>{' '}
+              <button onClick={onFavoriteToggle}>
+                <ReactSVG src={heartIcon} className={styles.heartIcon} />
+              </button>
             </div>
           </div>
           <div className={styles.info}>
             <p className={styles.teacherLanguages}>
-              <span>Speaks:</span> {teacher.languages.join(', ')}
+              <span>Speaks:</span>{' '}
+              <span className={styles.speaksSpan}>
+                {teacher.languages.join(', ')}
+              </span>
             </p>
             <p className={styles.teacherLanguages}>
-              <span>Lesson Info:</span> {teacher.lesson_info}
+              <span>Lesson Info:</span>{' '}
+              <span className={styles.lessonInfoSpan}>
+                {teacher.lesson_info}
+              </span>
             </p>
             <p className={styles.teacherLanguages}>
-              <span>Conditions:</span> {teacher.conditions.join(' ')}
+              <span>Conditions:</span>{' '}
+              <span className={styles.conditionsSpan}>
+                {teacher.conditions.join(' ')}
+              </span>
             </p>
           </div>
         </div>

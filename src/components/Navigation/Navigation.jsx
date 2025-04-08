@@ -65,7 +65,6 @@ const Navigation = () => {
           </ul>
         </nav>
 
-        {/* Кнопки: Log In, Registration */}
         <div className={styles.buttonsContainer}>
           <button className={styles.loginBtn} onClick={openLoginModal}>
             <ReactSVG src={loginIcon} className={styles.loginIcon} />

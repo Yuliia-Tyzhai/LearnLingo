@@ -44,7 +44,10 @@
   justify-content: center;
   flex-direction: row;
   gap: 32px;
-  margin-right: 64px;
+}
+
+.priceText {
+  /* margin-right: 64px; */
 }
 
 .avatarContainer {
@@ -88,4 +91,41 @@
 
 .teacherLanguages span {
   color: #8a8a89;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.lessonsContainer span {
+  /* margin-right: 16px; */
+  position: relative;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #121417;
+}
+
+.lessonsContainer span:not(:nth-last-child(1)):not(:nth-last-child(2))::after {
+  position: absolute;
+  content: '';
+  right: -16px;
+  top: 4px;
+  height: 70%;
+  width: 1px;
+  background-color: rgba(18, 20, 23, 0.2);
+}
+
+.price {
+  color: #38cd3e !important;
+}
+
+.speaksSpan {
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #121417 !important;
+}
+
+.lessonInfoSpan,
+.conditionsSpan {
+  color: #121417 !important;
 }
