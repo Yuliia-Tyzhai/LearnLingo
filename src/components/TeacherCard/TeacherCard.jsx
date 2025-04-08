@@ -62,10 +62,18 @@ const TeacherCard = ({ teacher, onFavoriteToggle }) => {
                 {teacher.conditions.join(' ')}
               </span>
             </p>
+
+            {!showFullInfo && (
+              <div className={styles.readMoreBtnContainer}>
+                <button onClick={toggleFullInfo} className={styles.readMoreBtn}>
+                  Read More
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
-        {showFullInfo ? (
+        {showFullInfo && (
           <>
             <p>Levels: {teacher.levels.map(level => `#${level}`).join(' ')}</p>
             <p>{teacher.experience}</p>
@@ -81,12 +89,6 @@ const TeacherCard = ({ teacher, onFavoriteToggle }) => {
 
             <button>Book trial lesson</button>
           </>
-        ) : (
-          <div className={styles.readMoreBtnContainer}>
-            <button onClick={toggleFullInfo} className={styles.readMoreBtn}>
-              Read More
-            </button>
-          </div>
         )}
       </div>
     </div>
