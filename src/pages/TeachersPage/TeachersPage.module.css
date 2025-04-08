@@ -1,0 +1,6 @@
+.teachersPageContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 24px;
+  background: #f8f8f8;
+}

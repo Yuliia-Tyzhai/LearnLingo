@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ref, get } from 'firebase/database';
 import { database } from '/firebase.config.js';
 import TeacherCard from '../../components/TeacherCard/TeacherCard';
+import styles from './TeachersPage.module.css';
 
 const TeachersPage = () => {
   const [teachers, setTeachers] = useState([]);
@@ -48,18 +49,21 @@ const TeachersPage = () => {
 
   return (
     <div>
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {!loading && teachers.length === 0 && <p>No teachers available.</p>}
-      <div className="teachers-grid">
-        {teachers.slice(0, visibleCount).map((teacher, index) => (
-          <TeacherCard
-            key={index}
-            teacher={teacher}
-            onFavoriteToggle={() => handleFavoriteToggle(teacher.id)}
-          />
-        ))}
-      </div>
+      {' '}
+      <div className={styles.teachersPageContainer}>
+        {loading && <p>Loading...</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {!loading && teachers.length === 0 && <p>No teachers available.</p>}
+        <div className="teachers-grid">
+          {teachers.slice(0, visibleCount).map((teacher, index) => (
+            <TeacherCard
+              key={index}
+              teacher={teacher}
+              onFavoriteToggle={() => handleFavoriteToggle(teacher.id)}
+            />
+          ))}
+        </div>
+      </div>{' '}
       {visibleCount < teachers.length && (
         <button onClick={handleLoadMore} className="load-more">
           Load More
