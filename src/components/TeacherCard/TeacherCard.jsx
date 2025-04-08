@@ -19,19 +19,35 @@ const TeacherCard = ({ teacher, onFavoriteToggle }) => {
       </div>
 
       <div className={styles.cardInfoContainer}>
-        {' '}
-        <p className="teacher-languages">
-          Speaks: {teacher.languages.join(', ')}
-        </p>
-        <h2>
-          {teacher.name} {teacher.surname}
-        </h2>
-        <p>Lessons online</p>
-        <p>Lessons done: {teacher.lessons_done}</p>
-        <p>Rating: {teacher.rating}</p>
-        <p>Price / 1 hour: ${teacher.price_per_hour}</p>
-        <p>Lesson Info: {teacher.lesson_info}</p>
-        <p>Conditions: {teacher.conditions.join(' ')}</p>
+        <div className={styles.firstContainer}>
+          <div className={styles.nameContainer}>
+            <div className={styles.teacherNameContainer}>
+              <p className={styles.languagesText}>Languages</p>
+              <h2 className={styles.teacherName}>
+                {teacher.name} {teacher.surname}
+              </h2>
+            </div>
+
+            <div className={styles.lessonsContainer}>
+              <p>Lessons online</p>
+              <p>Lessons done: {teacher.lessons_done}</p>
+              <p>Rating: {teacher.rating}</p>
+              <p>Price / 1 hour: ${teacher.price_per_hour}</p>
+            </div>
+          </div>
+          <div className={styles.info}>
+            <p className={styles.teacherLanguages}>
+              <span>Speaks:</span> {teacher.languages.join(', ')}
+            </p>
+            <p className={styles.teacherLanguages}>
+              <span>Lesson Info:</span> {teacher.lesson_info}
+            </p>
+            <p className={styles.teacherLanguages}>
+              <span>Conditions:</span> {teacher.conditions.join(' ')}
+            </p>
+          </div>
+        </div>
+
         {showFullInfo ? (
           <>
             <p>Levels: {teacher.levels.map(level => `#${level}`).join(' ')}</p>
