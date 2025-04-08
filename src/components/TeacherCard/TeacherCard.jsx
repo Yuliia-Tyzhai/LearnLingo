@@ -78,13 +78,15 @@ const TeacherCard = ({ teacher, onFavoriteToggle }) => {
                 </li>
               ))}
             </ul>
-            <button onClick={toggleFullInfo}>Hide</button>
+
             <button>Book trial lesson</button>
           </>
         ) : (
-          <>
-            <button onClick={toggleFullInfo}>Read More</button>
-          </>
+          <div className={styles.readMoreBtnContainer}>
+            <button onClick={toggleFullInfo} className={styles.readMoreBtn}>
+              Read More
+            </button>
+          </div>
         )}
       </div>
     </div>
