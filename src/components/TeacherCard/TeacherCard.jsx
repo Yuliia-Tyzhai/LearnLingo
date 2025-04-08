@@ -34,6 +34,9 @@ const TeacherCard = ({ teacher, onFavoriteToggle }) => {
               <p>Rating: {teacher.rating}</p>
               <p>Price / 1 hour: ${teacher.price_per_hour}</p>
             </div>
+            <div>
+              <button onClick={onFavoriteToggle}>❤️</button>
+            </div>
           </div>
           <div className={styles.info}>
             <p className={styles.teacherLanguages}>
@@ -69,7 +72,6 @@ const TeacherCard = ({ teacher, onFavoriteToggle }) => {
             <button onClick={toggleFullInfo}>Read More</button>
           </>
         )}
-        <button onClick={onFavoriteToggle}>❤️</button>
       </div>
     </div>
   );

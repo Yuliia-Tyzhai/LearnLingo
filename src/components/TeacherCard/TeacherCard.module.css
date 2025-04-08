@@ -6,11 +6,10 @@
   gap: 48px;
   border-radius: 24px;
   padding: 24px;
-  width: 1184px;
-  height: 328px;
+  width: auto;
+  height: auto;
   background: #fff;
   margin-bottom: 32px;
-  width: auto;
   padding: 24px;
 }
 
@@ -44,7 +43,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  gap: 64px;
+  gap: 32px;
+  margin-right: 64px;
 }
 
 .avatarContainer {
