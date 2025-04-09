@@ -178,9 +178,13 @@
   padding: 16px 48px;
   width: 232px;
   height: 60px;
-  background: #f4c550;
+  background-color: #9fbaae;
   font-weight: 700;
   font-size: 18px;
   line-height: 1.55556;
   color: #121417;
+}
+
+.bookBtn:hover {
+  background-color: #cbded3;
 }
