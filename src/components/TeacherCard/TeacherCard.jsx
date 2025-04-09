@@ -10,8 +10,9 @@ import { nanoid } from 'nanoid';
 import styles from './TeacherCard.module.css';
 import heartIcon from '../../assets/heart.svg';
 import heartFilledIcon from '../../assets/heart-hover.svg';
+import ModalUnauthorized from '../ModalUnauthorized/ModalUnauthorized';
 
-const TeacherCard = ({ teacher }) => {
+const TeacherCard = ({ teacher, isAuthenticated }) => {
   const dispatch = useDispatch();
   const favoriteTeachers = useSelector(selectFavorites);
 
@@ -19,9 +20,11 @@ const TeacherCard = ({ teacher }) => {
 
   const isFavorite = favoriteTeachers.includes(teacherId);
 
+  const [showModal, setShowModal] = useState(false);
+
   const handleFavoriteClick = () => {
-    if (!teacherId) {
-      console.error('Teacher ID is undefined. Cannot toggle favorite status.');
+    if (!isAuthenticated) {
+      setShowModal(true);
       return;
     }
 
@@ -31,6 +34,8 @@ const TeacherCard = ({ teacher }) => {
       dispatch(addToFavorites(teacherId));
     }
   };
+
+  const closeModal = () => setShowModal(false);
 
   const [showFullInfo, setShowFullInfo] = useState(false);
 
@@ -148,6 +153,8 @@ const TeacherCard = ({ teacher }) => {
             <button className={styles.bookBtn}>Book trial lesson</button>
           </>
         )}
+
+        {showModal && <ModalUnauthorized onClose={closeModal} />}
       </div>
     </div>
   );
