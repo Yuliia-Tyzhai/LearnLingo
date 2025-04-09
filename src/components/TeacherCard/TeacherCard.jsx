@@ -102,7 +102,7 @@ const TeacherCard = ({ teacher, onFavoriteToggle }) => {
                 <li key={index}>#{level}</li>
               ))}
             </ul>
-            <button>Book trial lesson</button>
+            <button className={styles.bookBtn}>Book trial lesson</button>
           </>
         )}
       </div>
