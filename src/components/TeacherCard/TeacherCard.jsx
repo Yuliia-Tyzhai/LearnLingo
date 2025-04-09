@@ -17,10 +17,10 @@ const TeacherCard = ({ teacher, isAuthenticated }) => {
   const favoriteTeachers = useSelector(selectFavorites);
 
   const [teacherId] = useState(() => teacher.id || nanoid());
-
   const isFavorite = favoriteTeachers.includes(teacherId);
 
   const [showModal, setShowModal] = useState(false);
+  const [showFullInfo, setShowFullInfo] = useState(false);
 
   const handleFavoriteClick = () => {
     if (!isAuthenticated) {
@@ -37,15 +37,9 @@ const TeacherCard = ({ teacher, isAuthenticated }) => {
 
   const closeModal = () => setShowModal(false);
 
-  const [showFullInfo, setShowFullInfo] = useState(false);
-
   const toggleFullInfo = () => {
     setShowFullInfo(prev => !prev);
   };
-
-  useEffect(() => {
-    console.log('Generated Teacher ID:', teacherId);
-  }, [teacherId]);
 
   return (
     <div className={styles.teacherCard}>
