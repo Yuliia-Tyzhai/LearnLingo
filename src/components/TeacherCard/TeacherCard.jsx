@@ -37,12 +37,13 @@ const TeacherCard = ({ teacher, onFavoriteToggle }) => {
               <span className={styles.priceText}>
                 Price / 1 hour:{' '}
                 <span className={styles.price}>{teacher.price_per_hour}$</span>
-              </span>{' '}
+              </span>
               <button onClick={onFavoriteToggle}>
                 <ReactSVG src={heartIcon} className={styles.heartIcon} />
               </button>
             </div>
           </div>
+
           <div className={styles.info}>
             <p className={styles.teacherLanguages}>
               <span>Speaks:</span>{' '}
@@ -64,18 +65,27 @@ const TeacherCard = ({ teacher, onFavoriteToggle }) => {
             </p>
 
             {!showFullInfo && (
-              <div className={styles.readMoreBtnContainer}>
-                <button onClick={toggleFullInfo} className={styles.readMoreBtn}>
-                  Read More
-                </button>
-              </div>
+              <>
+                <div className={styles.readMoreBtnContainer}>
+                  <button
+                    onClick={toggleFullInfo}
+                    className={styles.readMoreBtn}
+                  >
+                    Read More
+                  </button>
+                </div>
+                <ul className={styles.levelsList}>
+                  {teacher.levels.map((level, index) => (
+                    <li key={index}>#{level}</li>
+                  ))}
+                </ul>
+              </>
             )}
           </div>
         </div>
 
         {showFullInfo && (
           <>
-            <p>Levels: {teacher.levels.map(level => `#${level}`).join(' ')}</p>
             <p>{teacher.experience}</p>
             <p>Reviews:</p>
             <ul>
@@ -87,6 +97,11 @@ const TeacherCard = ({ teacher, onFavoriteToggle }) => {
               ))}
             </ul>
 
+            <ul className={styles.levelsList}>
+              {teacher.levels.map((level, index) => (
+                <li key={index}>#{level}</li>
+              ))}
+            </ul>
             <button>Book trial lesson</button>
           </>
         )}
