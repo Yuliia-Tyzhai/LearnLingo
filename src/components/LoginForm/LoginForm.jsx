@@ -4,6 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/auth/slice';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import styles from './LoginForm.module.css';
 
 const schema = yup.object().shape({
@@ -28,7 +30,14 @@ const LoginForm = () => {
   });
 
   const onSubmit = data => {
-    dispatch(loginUser({ email: data.email, password: data.password }));
+    dispatch(loginUser({ email: data.email, password: data.password }))
+      .unwrap()
+      .then(() => {
+        toast.success('Login successful!');
+      })
+      .catch(() => {
+        // Error обробляється через authError або можна показати toast.error
+      });
   };
 
   return (

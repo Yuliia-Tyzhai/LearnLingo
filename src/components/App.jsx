@@ -1,6 +1,8 @@
 import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout/Layout';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const HomePage = React.lazy(() => import('../pages/HomePage/HomePage'));
 const TeachersPage = React.lazy(() =>
@@ -19,6 +21,7 @@ function App() {
   return (
     <div>
       <Layout>
+        <ToastContainer />
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<HomePage />} />

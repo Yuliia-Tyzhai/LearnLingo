@@ -8,14 +8,21 @@ import {
 
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email, password, username }, { rejectWithValue }) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      return userCredential.user;
+      const firebaseUser = userCredential.user;
+
+      const user = {
+        uid: firebaseUser.uid,
+        email: firebaseUser.email,
+        displayName: username,
+      };
+      return user;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -31,7 +38,14 @@ export const loginUser = createAsyncThunk(
         email,
         password
       );
-      return userCredential.user;
+      const firebaseUser = userCredential.user;
+
+      const user = {
+        uid: firebaseUser.uid,
+        email: firebaseUser.email,
+        displayName: firebaseUser.displayName,
+      };
+      return user;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -43,6 +57,7 @@ export const logoutUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await signOut(auth);
+      return null;
     } catch (error) {
       return rejectWithValue(error.message);
     }

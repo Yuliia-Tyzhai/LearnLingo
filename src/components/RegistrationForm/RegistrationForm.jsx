@@ -4,6 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../redux/auth/slice';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import styles from './RegistrationForm.module.css';
 
 const schema = yup.object().shape({
@@ -35,7 +37,14 @@ const RegistrationForm = () => {
         password: data.password,
         username: data.username,
       })
-    );
+    )
+      .unwrap()
+      .then(() => {
+        toast.success('Registration successful!');
+      })
+      .catch(() => {
+        // Error спрацює та відобразиться через authError (за потребою можна також показати toast.error)
+      });
   };
 
   return (
