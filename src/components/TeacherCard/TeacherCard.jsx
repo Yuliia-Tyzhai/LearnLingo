@@ -5,7 +5,7 @@ import {
   removeFromFavorites,
 } from '../../redux/favorites/slice';
 import { selectFavorites } from '../../redux/favorites/selectors';
-import { selectUser } from '../../redux/auth/selectors'; // Селектор для даних користувача
+import { selectUser } from '../../redux/auth/selectors';
 import { nanoid } from 'nanoid';
 
 import styles from './TeacherCard.module.css';
@@ -16,10 +16,9 @@ import ModalUnauthorized from '../ModalUnauthorized/ModalUnauthorized';
 const TeacherCard = ({ teacher }) => {
   const dispatch = useDispatch();
   const favoriteTeachers = useSelector(selectFavorites);
-  const user = useSelector(selectUser); // отримуємо об'єкт користувача з auth state
+  const user = useSelector(selectUser);
   const isAuthenticated = Boolean(user);
 
-  // Якщо teacher.id немає, генеруємо унікальний id
   const [teacherId] = useState(() => teacher.id || nanoid());
   const isFavorite = favoriteTeachers.includes(teacherId);
 
@@ -101,7 +100,6 @@ const TeacherCard = ({ teacher }) => {
                 {teacher.conditions.join(' ')}
               </span>
             </p>
-
             {!showFullInfo && (
               <>
                 <div className={styles.readMoreBtnContainer}>
@@ -138,7 +136,6 @@ const TeacherCard = ({ teacher }) => {
                 <li>No reviews available.</li>
               )}
             </ul>
-
             <ul className={styles.levelsList}>
               {teacher.levels.map((level, index) => (
                 <li key={index}>#{level}</li>

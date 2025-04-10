@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { ref, get } from 'firebase/database';
-import { database } from '../../../firebase.config';
-
+import { useSelector } from 'react-redux';
 import TeacherCard from '../../components/TeacherCard/TeacherCard';
-
+import { database } from '../../../firebase.config';
+import { selectFavorites } from '../../redux/favorites/selectors';
 import styles from '../TeachersPage/TeachersPage.module.css';
 
 const FavoritesPage = () => {
+  const favoriteTeacherIds = useSelector(selectFavorites);
   const [teachers, setTeachers] = useState([]);
   const [visibleCount, setVisibleCount] = useState(4);
   const [loading, setLoading] = useState(true);
@@ -19,7 +20,10 @@ const FavoritesPage = () => {
         const rootRef = ref(database, '/');
         const snapshot = await get(rootRef);
         if (snapshot.exists()) {
-          const fetchedTeachers = Object.values(snapshot.val());
+          const fetchedTeachers = Object.values(snapshot.val()).map(
+            (teacher, index) =>
+              teacher.id ? teacher : { ...teacher, id: index.toString() }
+          );
           setTeachers(fetchedTeachers);
         } else {
           console.log('Дані про викладачів відсутні.');
@@ -35,9 +39,6 @@ const FavoritesPage = () => {
     fetchTeachers();
   }, []);
 
-  const favoritesRaw = localStorage.getItem('favorites');
-  const favoriteTeacherIds = favoritesRaw ? JSON.parse(favoritesRaw) : [];
-
   const favoriteTeachers = teachers.filter(teacher =>
     favoriteTeacherIds.includes(teacher.id)
   );
@@ -48,10 +49,8 @@ const FavoritesPage = () => {
 
   return (
     <div className={styles.teachersPageContainer}>
-      <h1>Мої обрані викладачі</h1>
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
-
       {!loading && favoriteTeachers.length === 0 && (
         <p>Ви ще не додали викладачів до обраних.</p>
       )}
