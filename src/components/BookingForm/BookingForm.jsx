@@ -35,11 +35,13 @@ const BookingForm = ({ teacher, onClose }) => {
 
   return (
     <div className={styles.bookingForm}>
-      <h2>Book Trial Lesson</h2>
-      <p>
-        Our experienced tutor will assess your current language level, discuss
-        your learning goals, and tailor the lesson to your specific needs.
-      </p>
+      <div className={styles.titleContainer}>
+        <h2 className={styles.bookingFormTitle}>Book Trial Lesson</h2>
+        <p className={styles.titleText}>
+          Our experienced tutor will assess your current language level, discuss
+          your learning goals, and tailor the lesson to your specific needs.
+        </p>
+      </div>
 
       <div className={styles.teacherInfo}>
         <img
@@ -47,18 +49,23 @@ const BookingForm = ({ teacher, onClose }) => {
           alt={teacher.name}
           className={styles.teacherPhoto}
         />
-        <p>
-          Your Teacher: {teacher.name} {teacher.surname}
-        </p>
+        <div className={styles.teacherText}>
+          <p className={styles.firstLine}>Your Teacher</p>
+          <p className={styles.secondLine}>
+            {teacher.name} {teacher.surname}
+          </p>
+        </div>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.formGroup}>
-          <label>What is your main reason for learning English?</label>
+          <label className={styles.label}>
+            What is your main reason for learning English?
+          </label>
           <ul className={styles.reasonsList}>
             {reasons.map(reason => (
               <li key={reason}>
-                <label>
+                <label className={styles.reasonsItem}>
                   <input type="radio" value={reason} {...register('reason')} />
                   {reason}
                 </label>
@@ -70,31 +77,45 @@ const BookingForm = ({ teacher, onClose }) => {
           )}
         </div>
 
-        <div className={styles.formGroup}>
-          <label htmlFor="fullName">Full Name:</label>
-          <input type="text" id="fullName" {...register('fullName')} />
-          {errors.fullName && (
-            <p className={styles.error}>{errors.fullName.message}</p>
-          )}
+        <div className={styles.bookingFormGroup}>
+          <div className={styles.formGroup}>
+            <input
+              type="text"
+              placeholder="Full Name"
+              {...register('fullName')}
+              className={styles.input}
+            />
+            {errors.fullName && (
+              <p className={styles.error}>{errors.fullName.message}</p>
+            )}
+          </div>
+          <div className={styles.formGroup}>
+            <input
+              type="email"
+              placeholder="Email"
+              {...register('email')}
+              className={styles.input}
+            />
+            {errors.email && (
+              <p className={styles.error}>{errors.email.message}</p>
+            )}
+          </div>
+          <div className={styles.formGroup}>
+            <input
+              type="tel"
+              placeholder="Phone Number"
+              {...register('phone')}
+              className={styles.input}
+            />
+            {errors.phone && (
+              <p className={styles.error}>{errors.phone.message}</p>
+            )}
+          </div>
         </div>
 
-        <div className={styles.formGroup}>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" {...register('email')} />
-          {errors.email && (
-            <p className={styles.error}>{errors.email.message}</p>
-          )}
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="phone">Phone Number:</label>
-          <input type="tel" id="phone" {...register('phone')} />
-          {errors.phone && (
-            <p className={styles.error}>{errors.phone.message}</p>
-          )}
-        </div>
-
-        <button type="submit">Book</button>
+        <button type="submit" className={styles.bookBtn}>
+          Book
+        </button>
       </form>
     </div>
   );
