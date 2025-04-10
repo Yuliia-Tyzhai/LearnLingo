@@ -5,7 +5,6 @@ import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../redux/auth/slice';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import styles from './RegistrationForm.module.css';
 
 const schema = yup.object().shape({
@@ -17,7 +16,7 @@ const schema = yup.object().shape({
     .required('Password is required'),
 });
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ onSuccess }) => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.loading);
   const authError = useSelector(state => state.auth.error);
@@ -41,16 +40,17 @@ const RegistrationForm = () => {
       .unwrap()
       .then(() => {
         toast.success('Registration successful!');
+        if (onSuccess) onSuccess();
       })
-      .catch(() => {
-        // Error спрацює та відобразиться через authError (за потребою можна також показати toast.error)
+      .catch(error => {
+        toast.error(error);
       });
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <div className={styles.inputName}>
-        <input {...register('username')} placeholder="Name" />
+        <input {...register('username')} placeholder="Username" />
         <p className={styles.error}>{errors.username?.message}</p>
       </div>
       <div className={styles.inputEmail}>

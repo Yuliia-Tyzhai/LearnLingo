@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
-import styles from './Navigation.module.css';
 import { ReactSVG } from 'react-svg';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../redux/auth/selectors';
+
+import styles from './Navigation.module.css';
 import learnLingoLogo from '../../../public/ukraine.svg';
 import loginIcon from '../../assets/login-icon.svg';
 
@@ -14,6 +17,7 @@ import RegistrationForm from '../RegistrationForm/RegistrationForm';
 const Navigation = () => {
   const location = useLocation();
   const isTeachersPageCheck = isTeachersPage(location.pathname);
+  const user = useSelector(selectUser);
 
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isRegistrationModalOpen, setRegistrationModalOpen] = useState(false);
@@ -27,7 +31,7 @@ const Navigation = () => {
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>
-        {/* Навігація: Лого, Home, Teachers */}
+        {/* Логотип та основна навігація */}
         <nav className={styles.navigationContainer}>
           <Link to="/" className={styles.learnLingoLogoContainer}>
             <ReactSVG className={styles.learnLingoLogo} src={learnLingoLogo} />
@@ -62,20 +66,37 @@ const Navigation = () => {
                 Teachers
               </NavLink>
             </li>
+            {user && (
+              <li className={styles.navListItem}>
+                <NavLink
+                  to="/favorites"
+                  className={({ isActive }) =>
+                    clsx(styles.link, isActive && styles.active)
+                  }
+                >
+                  Favorites
+                </NavLink>
+              </li>
+            )}
           </ul>
         </nav>
 
         <div className={styles.buttonsContainer}>
-          <button className={styles.loginBtn} onClick={openLoginModal}>
-            <ReactSVG src={loginIcon} className={styles.loginIcon} />
-            Log In
-          </button>
-          <button
-            className={styles.registrationBtn}
-            onClick={openRegistrationModal}
-          >
-            Registration
-          </button>
+          {/* Якщо користувач НЕ авторизований, показуємо кнопки Log In і Registration */}
+          {!user && (
+            <>
+              <button className={styles.loginBtn} onClick={openLoginModal}>
+                <ReactSVG src={loginIcon} className={styles.loginIcon} />
+                Log In
+              </button>
+              <button
+                className={styles.registrationBtn}
+                onClick={openRegistrationModal}
+              >
+                Registration
+              </button>
+            </>
+          )}
         </div>
       </div>
 
@@ -88,7 +109,6 @@ const Navigation = () => {
               and continue your search for a teacher.
             </p>
           </div>
-
           <LoginForm />
         </Modal>
       )}
@@ -103,7 +123,6 @@ const Navigation = () => {
               details.
             </p>
           </div>
-
           <RegistrationForm />
         </Modal>
       )}

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addToFavorites,
   removeFromFavorites,
 } from '../../redux/favorites/slice';
 import { selectFavorites } from '../../redux/favorites/selectors';
+import { selectUser } from '../../redux/auth/selectors'; // Селектор для даних користувача
 import { nanoid } from 'nanoid';
 
 import styles from './TeacherCard.module.css';
@@ -12,10 +13,13 @@ import heartIcon from '../../assets/heart.svg';
 import heartFilledIcon from '../../assets/heart-hover.svg';
 import ModalUnauthorized from '../ModalUnauthorized/ModalUnauthorized';
 
-const TeacherCard = ({ teacher, isAuthenticated }) => {
+const TeacherCard = ({ teacher }) => {
   const dispatch = useDispatch();
   const favoriteTeachers = useSelector(selectFavorites);
+  const user = useSelector(selectUser); // отримуємо об'єкт користувача з auth state
+  const isAuthenticated = Boolean(user);
 
+  // Якщо teacher.id немає, генеруємо унікальний id
   const [teacherId] = useState(() => teacher.id || nanoid());
   const isFavorite = favoriteTeachers.includes(teacherId);
 
@@ -27,7 +31,6 @@ const TeacherCard = ({ teacher, isAuthenticated }) => {
       setShowModal(true);
       return;
     }
-
     if (isFavorite) {
       dispatch(removeFromFavorites(teacherId));
     } else {
@@ -36,10 +39,7 @@ const TeacherCard = ({ teacher, isAuthenticated }) => {
   };
 
   const closeModal = () => setShowModal(false);
-
-  const toggleFullInfo = () => {
-    setShowFullInfo(prev => !prev);
-  };
+  const toggleFullInfo = () => setShowFullInfo(prev => !prev);
 
   return (
     <div className={styles.teacherCard}>

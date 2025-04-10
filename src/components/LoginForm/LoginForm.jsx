@@ -5,7 +5,6 @@ import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/auth/slice';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import styles from './LoginForm.module.css';
 
 const schema = yup.object().shape({
@@ -16,7 +15,7 @@ const schema = yup.object().shape({
     .required('Password is required'),
 });
 
-const LoginForm = () => {
+const LoginForm = ({ onSuccess }) => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.loading);
   const authError = useSelector(state => state.auth.error);
@@ -34,9 +33,10 @@ const LoginForm = () => {
       .unwrap()
       .then(() => {
         toast.success('Login successful!');
+        if (onSuccess) onSuccess();
       })
-      .catch(() => {
-        // Error обробляється через authError або можна показати toast.error
+      .catch(error => {
+        toast.error(error);
       });
   };
 
