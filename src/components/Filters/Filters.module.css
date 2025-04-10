@@ -1,0 +1,39 @@
+.filtersContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filterGroup label {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  color: #8a8a89;
+}
+
+.select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  border: none;
+  border-radius: 14px;
+  padding: 16px 148px 16px 18px;
+
+  background: #ffffff;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.11111;
+  color: #121417;
+}

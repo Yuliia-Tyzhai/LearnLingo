@@ -6,24 +6,29 @@ import {
 } from '../../redux/favorites/slice';
 import { selectFavorites } from '../../redux/favorites/selectors';
 import { selectUser } from '../../redux/auth/selectors';
+import { selectLevel } from '../../redux/filters/selectors';
 import { nanoid } from 'nanoid';
 
 import styles from './TeacherCard.module.css';
 import heartIcon from '../../assets/heart.svg';
 import heartFilledIcon from '../../assets/heart-hover.svg';
 import ModalUnauthorized from '../ModalUnauthorized/ModalUnauthorized';
+import BookingForm from '../BookingForm/BookingForm';
+import Modal from '../Modal/Modal';
 
 const TeacherCard = ({ teacher }) => {
   const dispatch = useDispatch();
   const favoriteTeachers = useSelector(selectFavorites);
   const user = useSelector(selectUser);
   const isAuthenticated = Boolean(user);
+  const selectedLevel = useSelector(selectLevel);
 
   const [teacherId] = useState(() => teacher.id || nanoid());
   const isFavorite = favoriteTeachers.includes(teacherId);
 
   const [showModal, setShowModal] = useState(false);
   const [showFullInfo, setShowFullInfo] = useState(false);
+  const [showBookingModal, setShowBookingModal] = useState(false);
 
   const handleFavoriteClick = () => {
     if (!isAuthenticated) {
@@ -38,7 +43,17 @@ const TeacherCard = ({ teacher }) => {
   };
 
   const closeModal = () => setShowModal(false);
-  const toggleFullInfo = () => setShowFullInfo(prev => !prev);
+  const toggleFullInfo = () => {
+    setShowFullInfo(prev => !prev);
+  };
+
+  const handleBookClick = () => {
+    setShowBookingModal(true);
+  };
+
+  const closeBookingModal = () => {
+    setShowBookingModal(false);
+  };
 
   return (
     <div className={styles.teacherCard}>
@@ -111,7 +126,17 @@ const TeacherCard = ({ teacher }) => {
                 </div>
                 <ul className={styles.levelsList}>
                   {teacher.levels.map((level, index) => (
-                    <li key={index}>#{level}</li>
+                    <li
+                      key={index}
+                      style={{
+                        backgroundColor:
+                          selectedLevel && selectedLevel === level
+                            ? '#9fbaae'
+                            : '',
+                      }}
+                    >
+                      #{level}
+                    </li>
                   ))}
                 </ul>
               </>
@@ -140,8 +165,16 @@ const TeacherCard = ({ teacher }) => {
                 <li key={index}>#{level}</li>
               ))}
             </ul>
-            <button className={styles.bookBtn}>Book trial lesson</button>
+            <button className={styles.bookBtn} onClick={handleBookClick}>
+              Book trial lesson
+            </button>
           </>
+        )}
+
+        {showBookingModal && (
+          <Modal onClose={closeBookingModal}>
+            <BookingForm teacher={teacher} onClose={closeBookingModal} />
+          </Modal>
         )}
 
         {showModal && <ModalUnauthorized onClose={closeModal} />}
