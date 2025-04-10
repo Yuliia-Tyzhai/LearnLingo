@@ -31,7 +31,6 @@ const Navigation = () => {
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>
-        {/* Логотип та основна навігація */}
         <nav className={styles.navigationContainer}>
           <Link to="/" className={styles.learnLingoLogoContainer}>
             <ReactSVG className={styles.learnLingoLogo} src={learnLingoLogo} />
@@ -82,7 +81,6 @@ const Navigation = () => {
         </nav>
 
         <div className={styles.buttonsContainer}>
-          {/* Якщо користувач НЕ авторизований, показуємо кнопки Log In і Registration */}
           {!user && (
             <>
               <button className={styles.loginBtn} onClick={openLoginModal}>
@@ -109,7 +107,7 @@ const Navigation = () => {
               and continue your search for a teacher.
             </p>
           </div>
-          <LoginForm />
+          <LoginForm onClose={closeLoginModal} />
         </Modal>
       )}
 
@@ -123,7 +121,7 @@ const Navigation = () => {
               details.
             </p>
           </div>
-          <RegistrationForm />
+          <RegistrationForm onClose={closeRegistrationModal} />
         </Modal>
       )}
     </header>

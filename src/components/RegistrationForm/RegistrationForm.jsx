@@ -16,7 +16,7 @@ const schema = yup.object().shape({
     .required('Password is required'),
 });
 
-const RegistrationForm = ({ onSuccess }) => {
+const RegistrationForm = ({ onSuccess, onClose }) => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.loading);
   const authError = useSelector(state => state.auth.error);
@@ -41,6 +41,7 @@ const RegistrationForm = ({ onSuccess }) => {
       .then(() => {
         toast.success('Registration successful!');
         if (onSuccess) onSuccess();
+        if (onClose) onClose();
       })
       .catch(error => {
         toast.error(error);

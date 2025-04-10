@@ -1,7 +1,7 @@
 .inputEmail input {
   border: 1px solid rgba(18, 20, 23, 0.1);
   border-radius: 12px;
-  padding: 16px 380px 16px 18px;
+  padding: 16px 18px 16px 18px;
   width: 438px;
   height: 54px;
   margin-bottom: 18px;
@@ -10,7 +10,7 @@
 .inputPassword input {
   border: 1px solid rgba(18, 20, 23, 0.1);
   border-radius: 12px;
-  padding: 16px 349px 16px 18px;
+  padding: 16px 18px 16px 18px;
   width: 438px;
   height: 54px;
   margin-bottom: 40px;

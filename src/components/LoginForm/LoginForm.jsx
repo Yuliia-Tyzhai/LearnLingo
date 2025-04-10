@@ -15,7 +15,7 @@ const schema = yup.object().shape({
     .required('Password is required'),
 });
 
-const LoginForm = ({ onSuccess }) => {
+const LoginForm = ({ onSuccess, onClose }) => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.loading);
   const authError = useSelector(state => state.auth.error);
@@ -34,6 +34,7 @@ const LoginForm = ({ onSuccess }) => {
       .then(() => {
         toast.success('Login successful!');
         if (onSuccess) onSuccess();
+        if (onClose) onClose();
       })
       .catch(error => {
         toast.error(error);
