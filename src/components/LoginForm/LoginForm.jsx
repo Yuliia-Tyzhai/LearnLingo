@@ -2,6 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../redux/auth/slice';
 import styles from './LoginForm.module.css';
 
 const schema = yup.object().shape({
@@ -13,6 +15,10 @@ const schema = yup.object().shape({
 });
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
+  const authError = useSelector(state => state.auth.error);
+
   const {
     register,
     handleSubmit,
@@ -22,7 +28,7 @@ const LoginForm = () => {
   });
 
   const onSubmit = data => {
-    console.log('Login Data:', data);
+    dispatch(loginUser({ email: data.email, password: data.password }));
   };
 
   return (
@@ -39,8 +45,9 @@ const LoginForm = () => {
         />
         <p className={styles.error}>{errors.password?.message}</p>
       </div>
-      <button type="submit" className={styles.loginBtn}>
-        Log In
+      {authError && <p className={styles.error}>{authError}</p>}
+      <button type="submit" className={styles.loginBtn} disabled={loading}>
+        {loading ? 'Logging in...' : 'Log In'}
       </button>
     </form>
   );

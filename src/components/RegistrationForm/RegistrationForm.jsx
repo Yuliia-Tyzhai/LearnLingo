@@ -2,6 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../../redux/auth/slice';
 import styles from './RegistrationForm.module.css';
 
 const schema = yup.object().shape({
@@ -14,6 +16,10 @@ const schema = yup.object().shape({
 });
 
 const RegistrationForm = () => {
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
+  const authError = useSelector(state => state.auth.error);
+
   const {
     register,
     handleSubmit,
@@ -23,13 +29,19 @@ const RegistrationForm = () => {
   });
 
   const onSubmit = data => {
-    console.log('Registration Data:', data);
+    dispatch(
+      registerUser({
+        email: data.email,
+        password: data.password,
+        username: data.username,
+      })
+    );
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <div className={styles.inputName}>
-        <input {...register('name')} placeholder="Name" />
+        <input {...register('username')} placeholder="Name" />
         <p className={styles.error}>{errors.username?.message}</p>
       </div>
       <div className={styles.inputEmail}>
@@ -44,8 +56,9 @@ const RegistrationForm = () => {
         />
         <p className={styles.error}>{errors.password?.message}</p>
       </div>
-      <button type="submit" className={styles.registerBtn}>
-        Sign up
+      {authError && <p className={styles.error}>{authError}</p>}
+      <button type="submit" className={styles.registerBtn} disabled={loading}>
+        {loading ? 'Registering...' : 'Sign up'}
       </button>
     </form>
   );
