@@ -51,16 +51,14 @@ const FavoritesPage = () => {
     <div className={styles.teachersPageContainer}>
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      {!loading && favoriteTeachers.length === 0 && (
-        <p>Ви ще не додали викладачів до обраних.</p>
-      )}
-      <div className={styles['teachers-grid']}>
+      {!loading && favoriteTeachers.length === 0 && <p>No teachers</p>}
+      <div className={styles.teachersGrid}>
         {favoriteTeachers.slice(0, visibleCount).map((teacher, index) => (
           <TeacherCard key={teacher.id || index} teacher={teacher} />
         ))}
       </div>
       {visibleCount < favoriteTeachers.length && (
-        <button onClick={handleLoadMore} className={styles['load-more']}>
+        <button onClick={handleLoadMore} className={styles.loadMoreBtn}>
           Load More
         </button>
       )}

@@ -44,16 +44,18 @@ const TeachersPage = () => {
     <div className={styles.teachersPageContainer}>
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      {!loading && teachers.length === 0 && <p>No teachers available.</p>}
-      <div className="teachers-grid">
+      {!loading && teachers.length === 0 && <p>No teachers.</p>}
+      <div className={styles.teachersGrid}>
         {teachers.slice(0, visibleCount).map((teacher, index) => (
           <TeacherCard key={teacher.id || index} teacher={teacher} />
         ))}
       </div>
       {visibleCount < teachers.length && (
-        <button onClick={handleLoadMore} className="load-more">
-          Load More
-        </button>
+        <div className={styles.loadMoreContainer}>
+          <button onClick={handleLoadMore} className={styles.loadMoreBtn}>
+            Load more
+          </button>
+        </div>
       )}
     </div>
   );

@@ -18,15 +18,15 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  gap: 32px;
+  /* gap: 32px; */
 }
 
 .nameContainer {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  flex-direction: row;
-  gap: 232px;
+  flex-direction: column;
+  /* gap: 232px; */
   white-space: nowrap;
 }
 
@@ -35,7 +35,9 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  gap: 10px;
+  /* gap: 10px; */
+  /* margin-top: 56px; */
+  margin-bottom: 32px;
 }
 
 .lessonsContainer {
@@ -44,10 +46,6 @@
   justify-content: center;
   flex-direction: row;
   gap: 32px;
-}
-
-.priceText {
-  /* margin-right: 64px; */
 }
 
 .avatarContainer {
@@ -73,6 +71,8 @@
   font-size: 16px;
   line-height: 1.5;
   color: #8a8a89;
+  margin-right: 192px;
+  /* margin-left: 192px; */
 }
 
 .teacherName {
@@ -97,7 +97,6 @@
 }
 
 .lessonsContainer span {
-  /* margin-right: 16px; */
   position: relative;
   font-weight: 500;
   font-size: 16px;
@@ -131,9 +130,6 @@
 }
 
 .readMoreBtnContainer {
-  /* margin: 0;
-  padding: 0;
-  text-align: left; */
   margin-top: 16px;
 }
 
@@ -167,10 +163,10 @@
   border: 1px solid rgba(18, 20, 23, 0.2);
 }
 
-.levelsList li:first-child {
+/* .levelsList li:first-child {
   background-color: #9fbaae;
   border: none;
-}
+} */
 
 .bookBtn {
   margin-top: 32px;

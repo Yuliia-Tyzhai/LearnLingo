@@ -53,19 +53,13 @@ const TeacherCard = ({ teacher }) => {
       <div className={styles.cardInfoContainer}>
         <div className={styles.firstContainer}>
           <div className={styles.nameContainer}>
-            <div className={styles.teacherNameContainer}>
-              <p className={styles.languagesText}>Languages</p>
-              <h2 className={styles.teacherName}>
-                {teacher.name} {teacher.surname}
-              </h2>
-            </div>
-
             <div className={styles.lessonsContainer}>
+              <p className={styles.languagesText}>Languages</p>
               <span>Lessons online</span>
               <span>Lessons done: {teacher.lessons_done}</span>
               <span>Rating: {teacher.rating}</span>
               <span className={styles.priceText}>
-                Price / 1 hour:{' '}
+                Price / 1 hour:
                 <span className={styles.price}>{teacher.price_per_hour}$</span>
               </span>
               <button
@@ -78,6 +72,11 @@ const TeacherCard = ({ teacher }) => {
                   className={styles.icon}
                 />
               </button>
+            </div>
+            <div className={styles.teacherNameContainer}>
+              <h2 className={styles.teacherName}>
+                {teacher.name} {teacher.surname}
+              </h2>
             </div>
           </div>
 

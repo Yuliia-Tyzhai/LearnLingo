@@ -1,7 +1,36 @@
 .teachersPageContainer {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  column-gap: 24px;
-  background: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: #f8f8f8;
   padding: 202px 128px 220px 128px;
+  margin: 0 auto;
+}
+
+.teachersGrid {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.loadMoreContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin-top: 64px;
+}
+
+.loadMoreBtn {
+  border-radius: 12px;
+  padding: 16px 48px;
+  width: 183px;
+  height: 60px;
+  background-color: #9fbaae;
+}
+
+.loadMoreBtn:hover {
+  background-color: #cbded3;
 }
