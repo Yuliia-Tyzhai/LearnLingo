@@ -97,3 +97,7 @@ https://www.figma.com/file/dewf5jVviSTuWMMyU3d8Mc/%D0%9F%D0%B5%D1%82-%D0%BF%D1%8
 
 - `firebase_docs` - Firebase documentation for working with the REST API.
 - `teachers.json` - file with teacher data to populate the database.
+
+## Author
+
+Yuliia Tyzhai, a Full-stack developer.
