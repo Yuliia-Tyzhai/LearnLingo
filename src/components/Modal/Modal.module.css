@@ -14,10 +14,11 @@
 .modalContent {
   border-radius: 30px;
   width: 565px;
-  height: auto;
+  max-height: 100vh;
   background-color: #ffffff;
   padding: 64px;
   position: relative;
+  overflow-y: auto;
 }
 
 .closeBtn {

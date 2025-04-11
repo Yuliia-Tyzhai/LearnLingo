@@ -109,7 +109,7 @@ const TeacherCard = ({ teacher }) => {
               </span>
             </p>
             <p className={styles.teacherLanguages}>
-              <span>Conditions:</span>{' '}
+              <span>Conditions:</span>
               <span className={styles.conditionsSpan}>
                 {teacher.conditions.join(' ')}
               </span>
@@ -146,7 +146,9 @@ const TeacherCard = ({ teacher }) => {
 
         {showFullInfo && (
           <>
-            <p>{teacher.experience || 'No experience provided.'}</p>
+            <p className={styles.teacherExperience}>
+              {teacher.experience || 'No experience provided.'}
+            </p>
             <p>Reviews:</p>
             <ul>
               {teacher.reviews && teacher.reviews.length > 0 ? (
