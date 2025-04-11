@@ -8,6 +8,7 @@ import { selectUser } from '../../redux/auth/selectors';
 import styles from './Navigation.module.css';
 import learnLingoLogo from '../../../public/ukraine.svg';
 import loginIcon from '../../assets/login-icon.svg';
+import LogoutButton from '../LogoutButton/LogoutButton'; // Додайте імпорт
 
 import { isTeachersPage } from '../../utils/isTeachersPage';
 import Modal from '../Modal/Modal';
@@ -81,7 +82,9 @@ const Navigation = () => {
         </nav>
 
         <div className={styles.buttonsContainer}>
-          {!user && (
+          {user ? (
+            <LogoutButton />
+          ) : (
             <>
               <button className={styles.loginBtn} onClick={openLoginModal}>
                 <ReactSVG src={loginIcon} className={styles.loginIcon} />
