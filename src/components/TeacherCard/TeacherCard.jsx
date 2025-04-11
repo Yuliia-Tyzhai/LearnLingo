@@ -149,13 +149,17 @@ const TeacherCard = ({ teacher }) => {
             <p className={styles.teacherExperience}>
               {teacher.experience || 'No experience provided.'}
             </p>
-            <p>Reviews:</p>
+
             <ul>
               {teacher.reviews && teacher.reviews.length > 0 ? (
                 teacher.reviews.map((review, index) => (
                   <li key={index}>
-                    <strong>{review.reviewer_name}</strong>: {review.comment} (
-                    {review.reviewer_rating}/5)
+                    <div>
+                      {review.reviewer_name}
+                      {review.reviewer_rating}.0
+                    </div>
+
+                    <div>{review.comment}</div>
                   </li>
                 ))
               ) : (

@@ -13,6 +13,7 @@
   justify-content: flex-start;
   flex-direction: column;
   gap: 8px;
+  position: relative;
 }
 
 .filterGroup label {
@@ -23,17 +24,35 @@
 }
 
 .select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   border: none;
   border-radius: 14px;
-  padding: 16px 148px 16px 18px;
-
+  padding: 14px 18px 14px 18px;
   background: #ffffff;
   font-weight: 500;
   font-size: 18px;
   line-height: 1.11111;
   color: #121417;
+}
+
+.dropdownIcon {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  bottom: 14px;
+  top: 50%;
+  transform: none;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+#language {
 }

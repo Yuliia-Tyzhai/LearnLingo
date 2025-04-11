@@ -13,6 +13,7 @@ import {
 import styles from './Filters.module.css';
 import { ref, get } from 'firebase/database';
 import { database } from '../../../firebase.config';
+import arrowDown from '../../assets/chevron-down-icon.svg';
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -91,6 +92,7 @@ const Filters = () => {
             </option>
           ))}
         </select>
+        <img src={arrowDown} alt="" className={styles.dropdownIcon} />
       </div>
 
       <div className={styles.filterGroup}>
@@ -108,6 +110,7 @@ const Filters = () => {
             </option>
           ))}
         </select>
+        <img src={arrowDown} alt="" className={styles.dropdownIcon} />
       </div>
 
       <div className={styles.filterGroup}>
@@ -125,6 +128,7 @@ const Filters = () => {
             </option>
           ))}
         </select>
+        <img src={arrowDown} alt="" className={styles.dropdownIcon} />
       </div>
     </div>
   );
