@@ -4,6 +4,7 @@
   justify-content: flex-start;
   flex-direction: row;
   gap: 20px;
+  /* margin-top: 96px; */
   margin-bottom: 32px;
 }
 
