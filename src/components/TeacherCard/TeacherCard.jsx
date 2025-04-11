@@ -165,12 +165,19 @@ const TeacherCard = ({ teacher }) => {
               {teacher.reviews && teacher.reviews.length > 0 ? (
                 teacher.reviews.map((review, index) => (
                   <li key={index}>
-                    <div>
-                      {review.reviewer_name} <div></div>
-                      <ReactSVG src={iconStar} className={styles.iconStar} />
-                      {review.reviewer_rating}.0
+                    <div className={styles.reviewerContainer}>
+                      <span className={styles.reviewerName}>
+                        {review.reviewer_name}
+                      </span>
+
+                      <span className={styles.reviewerRating}>
+                        <ReactSVG src={iconStar} className={styles.iconStar} />
+                        {review.reviewer_rating}.0
+                      </span>
                     </div>
-                    <div>{review.comment}</div>
+                    <div className={styles.reviewerComment}>
+                      {review.comment}
+                    </div>
                   </li>
                 ))
               ) : (

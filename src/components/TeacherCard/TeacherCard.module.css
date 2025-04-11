@@ -165,6 +165,7 @@
   color: #121417;
   margin: 0;
   padding: 0;
+  background-color: #ffffff;
 }
 
 .levelsList {
@@ -210,4 +211,39 @@
   color: #121417;
   margin-top: 16px;
   margin-bottom: 32px;
+}
+
+.reviewerName {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #8a8a89;
+}
+
+.reviewerRating {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  color: #121417;
+}
+
+.reviewerComment {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #121417;
+}
+
+.reviewerContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: 56px;
 }
