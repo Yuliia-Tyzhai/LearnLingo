@@ -15,23 +15,31 @@ import filtersReducer from '../redux/filters/slice';
 import favoritesReducer from '../redux/favorites/slice';
 import authReducer from '../redux/auth/slice';
 
-const persistConfig = {
+const persistFavoritesConfig = {
   key: 'favorites',
   storage,
   whitelist: ['favorites'],
 };
 
 const persistedFavoritesReducer = persistReducer(
-  persistConfig,
+  persistFavoritesConfig,
   favoritesReducer
 );
+
+const persistAuthConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['user'],
+};
+
+const persistedAuthReducer = persistReducer(persistAuthConfig, authReducer);
 
 export const store = configureStore({
   reducer: {
     teachers: teachersReducer,
     filters: filtersReducer,
     favorites: persistedFavoritesReducer,
-    auth: authReducer,
+    auth: persistedAuthReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

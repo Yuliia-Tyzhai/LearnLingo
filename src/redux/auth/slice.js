@@ -6,6 +6,14 @@ import {
   signOut,
 } from 'firebase/auth';
 
+const saveUserToLocalStorage = user => {
+  if (user) {
+    localStorage.setItem('user', JSON.stringify(user));
+  } else {
+    localStorage.removeItem('user');
+  }
+};
+
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
   async ({ email, password, username }, { rejectWithValue }) => {
@@ -22,6 +30,7 @@ export const registerUser = createAsyncThunk(
         email: firebaseUser.email,
         displayName: username,
       };
+      saveUserToLocalStorage(user);
       return user;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -45,6 +54,7 @@ export const loginUser = createAsyncThunk(
         email: firebaseUser.email,
         displayName: firebaseUser.displayName,
       };
+      saveUserToLocalStorage(user);
       return user;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -57,6 +67,7 @@ export const logoutUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await signOut(auth);
+      saveUserToLocalStorage(null);
       return null;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -67,11 +78,24 @@ export const logoutUser = createAsyncThunk(
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: null,
+    user:
+      (() => {
+        try {
+          return JSON.parse(localStorage.getItem('user'));
+        } catch (error) {
+          console.error('Error parsing user from localStorage:', error);
+          return null;
+        }
+      })() || null,
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    clearAuthState(state) {
+      state.user = null;
+      localStorage.removeItem('user');
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(registerUser.pending, state => {
@@ -103,5 +127,7 @@ const authSlice = createSlice({
       });
   },
 });
+
+export const { clearAuthState } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -20,11 +20,11 @@ const TeacherCard = ({ teacher }) => {
   const dispatch = useDispatch();
   const favoriteTeachers = useSelector(selectFavorites);
   const user = useSelector(selectUser);
-  const isAuthenticated = Boolean(user);
+  const isAuthenticated = Boolean(user); // Перевірка авторизації
   const selectedLevel = useSelector(selectLevel);
 
   const [teacherId] = useState(() => teacher.id || nanoid());
-  const isFavorite = favoriteTeachers.includes(teacherId);
+  const isFavorite = isAuthenticated && favoriteTeachers.includes(teacherId); // Додаткова перевірка авторизації
 
   const [showModal, setShowModal] = useState(false);
   const [showFullInfo, setShowFullInfo] = useState(false);
@@ -32,7 +32,7 @@ const TeacherCard = ({ teacher }) => {
 
   const handleFavoriteClick = () => {
     if (!isAuthenticated) {
-      setShowModal(true);
+      setShowModal(true); // Відкриття модального вікна для неавторизованих користувачів
       return;
     }
     if (isFavorite) {
@@ -43,9 +43,7 @@ const TeacherCard = ({ teacher }) => {
   };
 
   const closeModal = () => setShowModal(false);
-  const toggleFullInfo = () => {
-    setShowFullInfo(prev => !prev);
-  };
+  const toggleFullInfo = () => setShowFullInfo(prev => !prev);
 
   const handleBookClick = () => {
     setShowBookingModal(true);
@@ -158,7 +156,6 @@ const TeacherCard = ({ teacher }) => {
                       {review.reviewer_name}
                       {review.reviewer_rating}.0
                     </div>
-
                     <div>{review.comment}</div>
                   </li>
                 ))
