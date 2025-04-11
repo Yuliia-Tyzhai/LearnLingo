@@ -45,10 +45,10 @@
 
 .dropdownIcon {
   position: absolute;
-  top: 14px;
-  right: 14px;
-  bottom: 14px;
-  top: 50%;
+  top: 40px;
+  right: 12px;
+  bottom: 21.5px;
+  /* top: 21.5px; */
   transform: none;
   width: 20px;
   height: 20px;
