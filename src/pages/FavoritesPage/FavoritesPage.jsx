@@ -58,9 +58,11 @@ const FavoritesPage = () => {
         ))}
       </div>
       {visibleCount < favoriteTeachers.length && (
-        <button onClick={handleLoadMore} className={styles.loadMoreBtn}>
-          Load More
-        </button>
+        <div className={styles.loadMoreContainer}>
+          <button onClick={handleLoadMore} className={styles.loadMoreBtn}>
+            Load More
+          </button>
+        </div>
       )}
     </div>
   );
