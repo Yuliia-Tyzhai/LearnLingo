@@ -15,16 +15,18 @@ import heartFilledIcon from '../../assets/heart-hover.svg';
 import ModalUnauthorized from '../ModalUnauthorized/ModalUnauthorized';
 import BookingForm from '../BookingForm/BookingForm';
 import Modal from '../Modal/Modal';
+import { ReactSVG } from 'react-svg';
+import greenDot from '../../assets/green-dot.svg';
 
 const TeacherCard = ({ teacher }) => {
   const dispatch = useDispatch();
   const favoriteTeachers = useSelector(selectFavorites);
   const user = useSelector(selectUser);
-  const isAuthenticated = Boolean(user); // Перевірка авторизації
+  const isAuthenticated = Boolean(user);
   const selectedLevel = useSelector(selectLevel);
 
   const [teacherId] = useState(() => teacher.id || nanoid());
-  const isFavorite = isAuthenticated && favoriteTeachers.includes(teacherId); // Додаткова перевірка авторизації
+  const isFavorite = isAuthenticated && favoriteTeachers.includes(teacherId);
 
   const [showModal, setShowModal] = useState(false);
   const [showFullInfo, setShowFullInfo] = useState(false);
@@ -32,7 +34,7 @@ const TeacherCard = ({ teacher }) => {
 
   const handleFavoriteClick = () => {
     if (!isAuthenticated) {
-      setShowModal(true); // Відкриття модального вікна для неавторизованих користувачів
+      setShowModal(true);
       return;
     }
     if (isFavorite) {
@@ -61,6 +63,7 @@ const TeacherCard = ({ teacher }) => {
           alt={`${teacher.name || 'Teacher'} ${teacher.surname || ''}`}
           className={styles.teacherImg}
         />
+        <ReactSVG src={greenDot} className={styles.greenDot} />
       </div>
 
       <div className={styles.cardInfoContainer}>
