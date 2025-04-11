@@ -11,6 +11,7 @@
   background: #fff;
   margin-bottom: 32px;
   padding: 24px;
+  position: relative;
 }
 
 .firstContainer {
@@ -18,7 +19,6 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  /* gap: 32px; */
 }
 
 .nameContainer {
@@ -26,7 +26,6 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  /* gap: 232px; */
   white-space: nowrap;
 }
 
@@ -35,8 +34,6 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  /* gap: 10px; */
-  /* margin-top: 56px; */
   margin-bottom: 32px;
 }
 
@@ -81,7 +78,6 @@
   line-height: 1.5;
   color: #8a8a89;
   margin-right: 192px;
-  /* margin-left: 192px; */
 }
 
 .teacherName {
@@ -111,6 +107,24 @@
   font-size: 16px;
   line-height: 1.5;
   color: #121417;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 0;
+}
+
+.iconBook,
+.iconStar {
+  width: 16px;
+  height: 16px;
+}
+
+.favoriteBtn {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  top: 12px;
+  right: 24px;
 }
 
 .lessonsContainer span:not(:nth-last-child(1)):not(:nth-last-child(2))::after {
@@ -171,11 +185,6 @@
   padding: 8px 12px;
   border: 1px solid rgba(18, 20, 23, 0.2);
 }
-
-/* .levelsList li:first-child {
-  background-color: #9fbaae;
-  border: none;
-} */
 
 .bookBtn {
   margin-top: 32px;

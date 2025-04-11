@@ -17,6 +17,8 @@ import BookingForm from '../BookingForm/BookingForm';
 import Modal from '../Modal/Modal';
 import { ReactSVG } from 'react-svg';
 import greenDot from '../../assets/green-dot.svg';
+import iconBook from '../../assets/icon-book.svg';
+import iconStar from '../../assets/icon-star.svg';
 
 const TeacherCard = ({ teacher }) => {
   const dispatch = useDispatch();
@@ -71,9 +73,17 @@ const TeacherCard = ({ teacher }) => {
           <div className={styles.nameContainer}>
             <div className={styles.lessonsContainer}>
               <p className={styles.languagesText}>Languages</p>
-              <span>Lessons online</span>
+
+              <span>
+                <ReactSVG src={iconBook} className={styles.iconBook} />
+                Lessons online
+              </span>
               <span>Lessons done: {teacher.lessons_done}</span>
-              <span>Rating: {teacher.rating}</span>
+
+              <span>
+                <ReactSVG src={iconStar} className={styles.iconStar} />
+                Rating: {teacher.rating}
+              </span>
               <span className={styles.priceText}>
                 Price / 1 hour:
                 <span className={styles.price}>{teacher.price_per_hour}$</span>
@@ -85,7 +95,7 @@ const TeacherCard = ({ teacher }) => {
                 <img
                   src={isFavorite ? heartFilledIcon : heartIcon}
                   alt="Heart Icon"
-                  className={styles.icon}
+                  className={styles.heartIcon}
                 />
               </button>
             </div>
@@ -156,7 +166,8 @@ const TeacherCard = ({ teacher }) => {
                 teacher.reviews.map((review, index) => (
                   <li key={index}>
                     <div>
-                      {review.reviewer_name}
+                      {review.reviewer_name} <div></div>
+                      <ReactSVG src={iconStar} className={styles.iconStar} />
                       {review.reviewer_rating}.0
                     </div>
                     <div>{review.comment}</div>
