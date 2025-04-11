@@ -83,7 +83,7 @@ const Filters = () => {
           id="language"
           value={languageFilter}
           onChange={handleLanguageChange}
-          className={styles.select}
+          className={`${styles.select} ${styles.languageSelect}`}
         >
           <option value="">All</option>
           {languages.map(lang => (
@@ -101,7 +101,7 @@ const Filters = () => {
           id="level"
           value={levelFilter}
           onChange={handleLevelChange}
-          className={styles.select}
+          className={`${styles.select} ${styles.level}`}
         >
           <option value="">All</option>
           {levels.map(level => (
@@ -119,7 +119,7 @@ const Filters = () => {
           id="priceRange"
           value={priceRangeFilter[0]}
           onChange={handlePriceRangeChange}
-          className={styles.select}
+          className={`${styles.select} ${styles.priceRangeSelect}`}
         >
           <option value="">All</option>
           {prices.map(price => (
