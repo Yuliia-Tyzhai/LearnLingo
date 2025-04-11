@@ -29,6 +29,10 @@
   width: 183px;
   height: 60px;
   background-color: #9fbaae;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.55556;
+  color: #121417;
 }
 
 .loadMoreBtn:hover {
