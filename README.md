@@ -1,4 +1,4 @@
-# LearnLingo - Online Language Tutoring Application
+# LearnLingo
 
 ## Project Description
 
