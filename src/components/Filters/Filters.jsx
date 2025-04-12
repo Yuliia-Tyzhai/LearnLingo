@@ -24,6 +24,10 @@ const Filters = () => {
   const [languages, setLanguages] = useState([]);
   const [levels, setLevels] = useState([]);
   const [prices, setPrices] = useState([]);
+  const [selectedLanguageValue, setSelectedLanguageValue] =
+    useState(languageFilter);
+  const [selectedLevelValue, setSelectedLevelValue] = useState(levelFilter);
+  const [selectedPriceValue, setSelectedPriceValue] = useState('');
 
   useEffect(() => {
     const fetchTeacherData = async () => {
@@ -47,7 +51,7 @@ const Filters = () => {
 
           const uniquePrices = [
             ...new Set(fetchedTeachers.map(teacher => teacher.price_per_hour)),
-          ];
+          ].sort((a, b) => a - b);
 
           setLanguages(uniqueLanguages);
           setLevels(uniqueLevels);
@@ -63,16 +67,44 @@ const Filters = () => {
     fetchTeacherData();
   }, []);
 
+  useEffect(() => {
+    setSelectedLanguageValue(languageFilter);
+    setSelectedLevelValue(levelFilter);
+    if (
+      priceRangeFilter[0] === prices[0] &&
+      priceRangeFilter[1] === prices[prices.length - 1]
+    ) {
+      setSelectedPriceValue('');
+    } else {
+      setSelectedPriceValue(priceRangeFilter[0].toString());
+    }
+  }, [languageFilter, levelFilter, priceRangeFilter, prices]);
+
   const handlePriceRangeChange = e => {
-    const selectedPrice = Number(e.target.value);
-    dispatch(setPriceRange([selectedPrice, selectedPrice]));
+    const selectedPrice = e.target.value;
+    setSelectedPriceValue(selectedPrice);
+    if (selectedPrice === '') {
+      if (prices.length > 0) {
+        dispatch(setPriceRange([prices[0], prices[prices.length - 1]]));
+      } else {
+        dispatch(setPriceRange([0, 100]));
+      }
+    } else {
+      const price = Number(selectedPrice);
+      dispatch(setPriceRange([price, price]));
+    }
   };
+
   const handleLanguageChange = e => {
-    dispatch(setLanguage(e.target.value));
+    const selectedLanguage = e.target.value;
+    setSelectedLanguageValue(selectedLanguage);
+    dispatch(setLanguage(selectedLanguage));
   };
 
   const handleLevelChange = e => {
-    dispatch(setLevel(e.target.value));
+    const selectedLevel = e.target.value;
+    setSelectedLevelValue(selectedLevel);
+    dispatch(setLevel(selectedLevel));
   };
 
   return (
@@ -81,7 +113,7 @@ const Filters = () => {
         <label htmlFor="language">Languages</label>
         <select
           id="language"
-          value={languageFilter}
+          value={selectedLanguageValue}
           onChange={handleLanguageChange}
           className={`${styles.select} ${styles.languageSelect}`}
         >
@@ -99,7 +131,7 @@ const Filters = () => {
         <label htmlFor="level">Level of knowledge</label>
         <select
           id="level"
-          value={levelFilter}
+          value={selectedLevelValue}
           onChange={handleLevelChange}
           className={`${styles.select} ${styles.level}`}
         >
@@ -117,7 +149,7 @@ const Filters = () => {
         <label htmlFor="priceRange">Price</label>
         <select
           id="priceRange"
-          value={priceRangeFilter[0]}
+          value={selectedPriceValue}
           onChange={handlePriceRangeChange}
           className={`${styles.select} ${styles.priceRangeSelect}`}
         >

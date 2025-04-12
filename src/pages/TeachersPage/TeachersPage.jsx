@@ -50,17 +50,26 @@ const TeachersPage = () => {
 
   useEffect(() => {
     const applyFilters = () => {
-      const filtered = teachers.filter(teacher => {
-        const matchesLanguage =
-          !languageFilter || teacher.languages.includes(languageFilter);
-        const matchesLevel =
-          !levelFilter || teacher.levels.includes(levelFilter);
-        const matchesPrice =
-          teacher.price_per_hour >= priceRangeFilter[0] &&
-          teacher.price_per_hour <= priceRangeFilter[1];
+      let filtered = teachers;
 
-        return matchesLanguage && matchesLevel && matchesPrice;
-      });
+      if (languageFilter) {
+        filtered = filtered.filter(
+          teacher =>
+            teacher.languages && teacher.languages.includes(languageFilter)
+        );
+      }
+
+      if (levelFilter) {
+        filtered = filtered.filter(
+          teacher => teacher.levels && teacher.levels.includes(levelFilter)
+        );
+      }
+
+      filtered = filtered.filter(
+        teacher =>
+          teacher.price_per_hour >= priceRangeFilter[0] &&
+          teacher.price_per_hour <= priceRangeFilter[1]
+      );
 
       setFilteredTeachers(filtered);
     };
