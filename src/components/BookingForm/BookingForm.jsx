@@ -32,7 +32,6 @@ const BookingForm = ({ teacher, onClose }) => {
 
   const onSubmit = data => {
     try {
-      // Зберігаємо дані в localStorage
       const existingBookings =
         JSON.parse(localStorage.getItem('bookings')) || [];
       localStorage.setItem(
