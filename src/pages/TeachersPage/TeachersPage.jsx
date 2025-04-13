@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ref, get } from 'firebase/database';
-import { database } from '/firebase.config.js';
+import { database } from '../../../firebase.config';
 import TeacherCard from '../../components/TeacherCard/TeacherCard';
 import styles from './TeachersPage.module.css';
 import {
@@ -30,8 +30,10 @@ const TeachersPage = () => {
         const snapshot = await get(rootRef);
         if (snapshot.exists()) {
           const fetchedTeachers = Object.values(snapshot.val()).map(
-            (teacher, index) =>
-              teacher.id ? teacher : { ...teacher, id: index.toString() }
+            (teacher, index) => {
+              const id = teacher.id || `teacher-${index}-${Date.now()}`;
+              return { ...teacher, id };
+            }
           );
           setTeachers(fetchedTeachers);
         } else {
@@ -52,14 +54,14 @@ const TeachersPage = () => {
     const applyFilters = () => {
       let filtered = teachers;
 
-      if (languageFilter) {
+      if (languageFilter && languageFilter !== 'All') {
         filtered = filtered.filter(
           teacher =>
             teacher.languages && teacher.languages.includes(languageFilter)
         );
       }
 
-      if (levelFilter) {
+      if (levelFilter && levelFilter !== 'All') {
         filtered = filtered.filter(
           teacher => teacher.levels && teacher.levels.includes(levelFilter)
         );
@@ -67,8 +69,9 @@ const TeachersPage = () => {
 
       filtered = filtered.filter(
         teacher =>
-          teacher.price_per_hour >= priceRangeFilter[0] &&
-          teacher.price_per_hour <= priceRangeFilter[1]
+          priceRangeFilter.includes('All') ||
+          (teacher.price_per_hour >= priceRangeFilter[0] &&
+            teacher.price_per_hour <= priceRangeFilter[1])
       );
 
       setFilteredTeachers(filtered);
@@ -90,8 +93,8 @@ const TeachersPage = () => {
         <p>No teachers matching your filters.</p>
       )}
       <div className={styles.teachersGrid}>
-        {filteredTeachers.slice(0, visibleCount).map((teacher, index) => (
-          <TeacherCard key={teacher.id || index} teacher={teacher} />
+        {filteredTeachers.slice(0, visibleCount).map(teacher => (
+          <TeacherCard key={teacher.id} teacher={teacher} />
         ))}
       </div>
       {visibleCount < filteredTeachers.length && (

@@ -50,12 +50,23 @@ const Filters = () => {
           ];
 
           const uniquePrices = [
-            ...new Set(fetchedTeachers.map(teacher => teacher.price_per_hour)),
+            ...new Set(
+              fetchedTeachers.map(teacher => teacher.price_per_hour || 0)
+            ),
           ].sort((a, b) => a - b);
 
           setLanguages(uniqueLanguages);
           setLevels(uniqueLevels);
           setPrices(uniquePrices);
+
+          if (uniquePrices.length > 0) {
+            dispatch(
+              setPriceRange([
+                uniquePrices[0],
+                uniquePrices[uniquePrices.length - 1],
+              ])
+            );
+          }
         } else {
           console.log('No teacher data found.');
         }
@@ -65,7 +76,7 @@ const Filters = () => {
     };
 
     fetchTeacherData();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setSelectedLanguageValue(languageFilter);
@@ -98,13 +109,13 @@ const Filters = () => {
   const handleLanguageChange = e => {
     const selectedLanguage = e.target.value;
     setSelectedLanguageValue(selectedLanguage);
-    dispatch(setLanguage(selectedLanguage));
+    dispatch(setLanguage(selectedLanguage || 'All'));
   };
 
   const handleLevelChange = e => {
     const selectedLevel = e.target.value;
     setSelectedLevelValue(selectedLevel);
-    dispatch(setLevel(selectedLevel));
+    dispatch(setLevel(selectedLevel || 'All'));
   };
 
   return (
@@ -149,7 +160,7 @@ const Filters = () => {
         <label htmlFor="priceRange">Price</label>
         <select
           id="priceRange"
-          value={selectedPriceValue}
+          value={selectedPriceValue === '' ? 'All' : selectedPriceValue}
           onChange={handlePriceRangeChange}
           className={`${styles.select} ${styles.priceRangeSelect}`}
         >
