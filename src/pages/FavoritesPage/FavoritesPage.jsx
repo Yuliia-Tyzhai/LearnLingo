@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import TeacherCard from '../../components/TeacherCard/TeacherCard';
 import { database } from '../../../firebase.config';
 import { selectFavorites } from '../../redux/favorites/selectors';
-import Loader from '../../components/Loader/Loader';
 import styles from '../TeachersPage/TeachersPage.module.css';
+import Loader from '../../components/Loader/Loader';
 
 const FavoritesPage = () => {
   const favoriteTeacherIds = useSelector(selectFavorites);
@@ -22,8 +22,10 @@ const FavoritesPage = () => {
         const snapshot = await get(rootRef);
         if (snapshot.exists()) {
           const fetchedTeachers = Object.values(snapshot.val()).map(
-            (teacher, index) =>
-              teacher.id ? teacher : { ...teacher, id: index.toString() }
+            (teacher, index) => ({
+              ...teacher,
+              id: teacher.id || `teacher-${index}`,
+            })
           );
           setTeachers(fetchedTeachers);
         } else {
@@ -51,19 +53,23 @@ const FavoritesPage = () => {
   return (
     <div className={styles.teachersPageContainer}>
       {loading && <Loader />}
+
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      {!loading && favoriteTeachers.length === 0 && <p>No teachers</p>}
+
+      {!loading && favoriteTeachers.length === 0 && (
+        <p>No favorite teachers found.</p>
+      )}
+
       <div className={styles.teachersGrid}>
         {favoriteTeachers.slice(0, visibleCount).map((teacher, index) => (
           <TeacherCard key={teacher.id || index} teacher={teacher} />
         ))}
       </div>
+
       {visibleCount < favoriteTeachers.length && (
-        <div className={styles.loadMoreContainer}>
-          <button onClick={handleLoadMore} className={styles.loadMoreBtn}>
-            Load More
-          </button>
-        </div>
+        <button onClick={handleLoadMore} className={styles.loadMoreBtn}>
+          Load More
+        </button>
       )}
     </div>
   );

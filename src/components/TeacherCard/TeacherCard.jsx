@@ -9,16 +9,16 @@ import { selectUser } from '../../redux/auth/selectors';
 import { selectLevel } from '../../redux/filters/selectors';
 import { nanoid } from 'nanoid';
 
+import { ReactSVG } from 'react-svg';
 import styles from './TeacherCard.module.css';
 import heartIcon from '../../assets/heart.svg';
 import heartFilledIcon from '../../assets/heart-hover.svg';
-import ModalUnauthorized from '../ModalUnauthorized/ModalUnauthorized';
-import BookingForm from '../BookingForm/BookingForm';
-import Modal from '../Modal/Modal';
-import { ReactSVG } from 'react-svg';
 import greenDot from '../../assets/green-dot.svg';
 import iconBook from '../../assets/icon-book.svg';
 import iconStar from '../../assets/icon-star.svg';
+import ModalUnauthorized from '../ModalUnauthorized/ModalUnauthorized';
+import BookingForm from '../BookingForm/BookingForm';
+import Modal from '../Modal/Modal';
 
 const TeacherCard = ({ teacher }) => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const TeacherCard = ({ teacher }) => {
   const selectedLevel = useSelector(selectLevel);
 
   const [teacherId] = useState(() => teacher.id || nanoid());
-  const isFavorite = isAuthenticated && favoriteTeachers.includes(teacherId);
+  const isFavorite = favoriteTeachers.includes(teacherId);
 
   const [showModal, setShowModal] = useState(false);
   const [showFullInfo, setShowFullInfo] = useState(false);

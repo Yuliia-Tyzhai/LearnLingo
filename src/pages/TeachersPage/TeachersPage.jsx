@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ref, get } from 'firebase/database';
-import { database } from '../../../firebase.config';
+import { database } from '/firebase.config.js';
 import TeacherCard from '../../components/TeacherCard/TeacherCard';
-import styles from './TeachersPage.module.css';
+import Filters from '../../components/Filters/Filters';
+import Loader from '../../components/Loader/Loader';
+import {
+  addToFavorites,
+  removeFromFavorites,
+  setFavorites,
+} from '../../redux/favorites/slice';
+import { selectFavorites } from '../../redux/favorites/selectors';
 import {
   selectLanguage,
   selectLevel,
   selectPriceRange,
 } from '../../redux/filters/selectors';
-import Filters from '../../components/Filters/Filters';
-import Loader from '../../components/Loader/Loader';
+import styles from './TeachersPage.module.css';
 
 const TeachersPage = () => {
+  const dispatch = useDispatch();
+  const favoriteTeacherIds = useSelector(selectFavorites);
+
   const [teachers, setTeachers] = useState([]);
   const [filteredTeachers, setFilteredTeachers] = useState([]);
   const [visibleCount, setVisibleCount] = useState(4);
@@ -24,6 +33,12 @@ const TeachersPage = () => {
   const priceRangeFilter = useSelector(selectPriceRange);
 
   useEffect(() => {
+    const favoritesFromStorage =
+      JSON.parse(localStorage.getItem('favorites')) || [];
+    dispatch(setFavorites(favoritesFromStorage));
+  }, [dispatch]);
+
+  useEffect(() => {
     const fetchTeachers = async () => {
       try {
         setLoading(true);
@@ -31,18 +46,18 @@ const TeachersPage = () => {
         const snapshot = await get(rootRef);
         if (snapshot.exists()) {
           const fetchedTeachers = Object.values(snapshot.val()).map(
-            (teacher, index) => {
-              const id = teacher.id || `teacher-${index}-${Date.now()}`;
-              return { ...teacher, id };
-            }
+            (teacher, index) => ({
+              ...teacher,
+              id: teacher.id || `teacher-${index}`,
+            })
           );
           setTeachers(fetchedTeachers);
         } else {
-          console.log('No teacher data found.');
+          console.error('No teacher data found.');
         }
-      } catch (error) {
+      } catch (err) {
         setError('Error loading data.');
-        console.error('Error fetching teachers:', error);
+        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -56,15 +71,14 @@ const TeachersPage = () => {
       let filtered = teachers;
 
       if (languageFilter && languageFilter !== 'All') {
-        filtered = filtered.filter(
-          teacher =>
-            teacher.languages && teacher.languages.includes(languageFilter)
+        filtered = filtered.filter(teacher =>
+          teacher.languages?.includes(languageFilter)
         );
       }
 
       if (levelFilter && levelFilter !== 'All') {
-        filtered = filtered.filter(
-          teacher => teacher.levels && teacher.levels.includes(levelFilter)
+        filtered = filtered.filter(teacher =>
+          teacher.levels?.includes(levelFilter)
         );
       }
 
@@ -85,19 +99,42 @@ const TeachersPage = () => {
     setVisibleCount(prevCount => prevCount + 4);
   };
 
+  const handleFavoriteClick = (teacherId, isFavorite) => {
+    if (isFavorite) {
+      dispatch(removeFromFavorites(teacherId));
+    } else {
+      dispatch(addToFavorites(teacherId));
+    }
+  };
+
   return (
     <div className={styles.teachersPageContainer}>
       <Filters />
+
       {loading && <Loader />}
       {error && <p style={{ color: 'red' }}>{error}</p>}
+
       {!loading && filteredTeachers.length === 0 && (
         <p>No teachers matching your filters.</p>
       )}
+
       <div className={styles.teachersGrid}>
-        {filteredTeachers.slice(0, visibleCount).map(teacher => (
-          <TeacherCard key={teacher.id} teacher={teacher} />
-        ))}
+        {filteredTeachers.slice(0, visibleCount).map(teacher => {
+          const isFavorite = favoriteTeacherIds.includes(teacher.id);
+
+          return (
+            <TeacherCard
+              key={teacher.id}
+              teacher={teacher}
+              isFavorite={isFavorite}
+              onFavoriteToggle={() =>
+                handleFavoriteClick(teacher.id, isFavorite)
+              }
+            />
+          );
+        })}
       </div>
+
       {visibleCount < filteredTeachers.length && (
         <div className={styles.loadMoreContainer}>
           <button onClick={handleLoadMore} className={styles.loadMoreBtn}>
