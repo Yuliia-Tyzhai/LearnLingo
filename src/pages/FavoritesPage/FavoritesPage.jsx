@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import TeacherCard from '../../components/TeacherCard/TeacherCard';
 import { database } from '../../../firebase.config';
 import { selectFavorites } from '../../redux/favorites/selectors';
+import Loader from '../../components/Loader/Loader';
 import styles from '../TeachersPage/TeachersPage.module.css';
 
 const FavoritesPage = () => {
@@ -49,7 +50,7 @@ const FavoritesPage = () => {
 
   return (
     <div className={styles.teachersPageContainer}>
-      {loading && <p>Loading...</p>}
+      {loading && <Loader />}
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {!loading && favoriteTeachers.length === 0 && <p>No teachers</p>}
       <div className={styles.teachersGrid}>

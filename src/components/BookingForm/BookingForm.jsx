@@ -2,6 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import styles from './BookingForm.module.css';
 
 const schema = yup.object().shape({
@@ -29,8 +31,20 @@ const BookingForm = ({ teacher, onClose }) => {
   });
 
   const onSubmit = data => {
-    console.log(data);
-    onClose();
+    try {
+      // Зберігаємо дані в localStorage
+      const existingBookings =
+        JSON.parse(localStorage.getItem('bookings')) || [];
+      localStorage.setItem(
+        'bookings',
+        JSON.stringify([...existingBookings, data])
+      );
+
+      toast.success('Your booking has been successfully submitted!');
+      if (onClose) onClose();
+    } catch (error) {
+      toast.error('Something went wrong. Please try again.');
+    }
   };
 
   return (

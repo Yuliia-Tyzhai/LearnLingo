@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/auth/slice';
 import { toast } from 'react-toastify';
+import Loader from '../../components/Loader/Loader';
 import styles from './LoginForm.module.css';
 
 const schema = yup.object().shape({
@@ -57,7 +58,7 @@ const LoginForm = ({ onSuccess, onClose }) => {
       </div>
       {authError && <p className={styles.error}>{authError}</p>}
       <button type="submit" className={styles.loginBtn} disabled={loading}>
-        {loading ? 'Logging in...' : 'Log In'}
+        {loading ? <Loader /> : 'Log In'}
       </button>
     </form>
   );

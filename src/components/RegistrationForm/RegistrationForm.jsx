@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../redux/auth/slice';
 import { toast } from 'react-toastify';
+import Loader from '../Loader/Loader';
 import styles from './RegistrationForm.module.css';
 
 const schema = yup.object().shape({
@@ -68,7 +69,7 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
       </div>
       {authError && <p className={styles.error}>{authError}</p>}
       <button type="submit" className={styles.registerBtn} disabled={loading}>
-        {loading ? 'Registering...' : 'Sign up'}
+        {loading ? <Loader /> : 'Sign up'}
       </button>
     </form>
   );

@@ -10,6 +10,7 @@ import {
   selectPriceRange,
 } from '../../redux/filters/selectors';
 import Filters from '../../components/Filters/Filters';
+import Loader from '../../components/Loader/Loader';
 
 const TeachersPage = () => {
   const [teachers, setTeachers] = useState([]);
@@ -87,7 +88,7 @@ const TeachersPage = () => {
   return (
     <div className={styles.teachersPageContainer}>
       <Filters />
-      {loading && <p>Loading...</p>}
+      {loading && <Loader />}
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {!loading && filteredTeachers.length === 0 && (
         <p>No teachers matching your filters.</p>
